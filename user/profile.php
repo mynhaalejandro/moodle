@@ -343,9 +343,9 @@ if ($user->msn && !isset($hiddenfields['msnid'])) {
 
 /// Print the Custom User Fields
 profile_display_fields($user->id);
-
-
-if (!isset($hiddenfields['mycourses'])) {
+/// A hack related to MDL-39273 for illustration purposed: This include, displays the students overall course grade, after the course name.  See notes within include for inforamtion on access to the students user grade report
+include 'profilemycoursegrades.inc.php';
+/* if (!isset($hiddenfields['mycourses'])) {
     if ($mycourses = enrol_get_all_users_courses($user->id, true, NULL, 'visible DESC,sortorder ASC')) {
         $shown=0;
         $courselisting = '';
@@ -371,7 +371,7 @@ if (!isset($hiddenfields['mycourses'])) {
         echo html_writer::tag('dt', get_string('courseprofiles'));
         echo html_writer::tag('dd', rtrim($courselisting,', '));
     }
-}
+} */
 if (!isset($hiddenfields['firstaccess'])) {
     if ($user->firstaccess) {
         $datestring = userdate($user->firstaccess)."&nbsp; (".format_time(time() - $user->firstaccess).")";
